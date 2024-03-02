@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev":"nodemon backend/index.js"
+    "start":"nodemon backend/server.js"
   },
   "type": "module",
   "author": "UTKARSH RAJ",
