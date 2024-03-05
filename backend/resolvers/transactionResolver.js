@@ -1,11 +1,68 @@
-import { transactions } from '../dummyData/data.js'
+import Transaction from "../models/transactionModal.js"
 
 const transactionResolver = {
+
   Query: {
-    transactions: () => {
-      return transactions
+    transactions: async (_, __, context) => {
+      try {
+        if (!context.getUser()) throw new Error("Unauthorized")
+        const userId = await context.getUser()._id
+
+        const transactions = await Transaction.find({ userId })
+        return transactions
+      } catch (err) {
+        console.error("Error in getting transaction", err)
+        throw new Error("Error getting transaction")
+      }
+    },
+    transaction: async (_, { transactionId },) => {
+      try {
+        const transaction = await Transaction.findById({ transactionId })
+        return transaction
+      } catch (err) {
+        console.error("Error in getting transaction", err)
+        throw new Error("Error getting transaction")
+      }
     }
   },
-  Mutation: {}
+
+  Mutation: {
+    createTransaction: async (_, { input }, context) => {
+      try {
+        const newTransaction = new Transaction({
+          ...input,
+          userId: context.getUser()._id
+        })
+        await newTransaction.save()
+        return newTransaction
+      } catch (err) {
+        console.error("Error in create Transacction:", err)
+        throw new Error(err.message || "Error creating transaction")
+      }
+    },
+
+    updateTransaction: async (_, { input }) => {
+      try {
+        const updatedTransaction = await Transaction.findByIdAndUpdate(input.transactionId, input, { new: true })
+        return updatedTransaction
+      } catch (err) {
+        console.error("Error updating transaction:", err)
+        throw new Error(err.message || "Error updating")
+      }
+    },
+
+    deleteTransaction: async (_, { transactionId }) => {
+      try {
+        const deletedTransaction = await Transaction.findByIdAndDelete(transactionId)
+        return deletedTransaction
+      } catch (err) {
+        console.error("Error deleting transaction:", err)
+        throw new Error(err.message || "Error deleting")
+      }
+    }
+
+  },
+
 }
+
 export default transactionResolver
