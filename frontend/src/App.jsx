@@ -1,15 +1,28 @@
+import { Route, Routes } from "react-router-dom";
+
+import HomePage from './Pages/HomePage'
+import LoginPage from './Pages/LoginPage'
+import SignUpPage from './Pages/SignUpPage'
+import TransactionPage from './Pages/TransactionPage'
+import NotFound from './Pages/NotFound'
+import { Header } from "./components/component/Header";
+import { BackgroundBeams } from "./components/ui/BackgroundBeams";
 
 function App() {
-
+  const authUser = true;
   return (
-    <div className="h-screen  bg-neutral-950 relative flex flex-col items-center justify-center antialiased">
-      <div className="max-w-2xl mx-auto p-4">
-        <h1 className="relative z-10 text-lg md:text-7xl  bg-clip-text text-transparent bg-gradient-to-b from-neutral-200 to-neutral-600  text-center font-sans font-bold">
-          Join the waitlist
-        </h1>
-      </div>
+    <div className=" bg-neutral-950 relative flex flex-col items-center justify-center antialiased">
+      {authUser && <Header />}
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route path='/login' element={<LoginPage />} />
+        <Route path='/signup' element={<SignUpPage />} />
+        <Route path='/transaction/:id' element={<TransactionPage />} />
+        <Route path='*' element={<NotFound />} />
+      </Routes>
+      <BackgroundBeams />
     </div>
-  )
+  );
 }
 
 export default App
