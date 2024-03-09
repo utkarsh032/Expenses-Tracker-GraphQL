@@ -20,7 +20,7 @@ export function Header() {
     },
   ];
   return (
-    <div className="mb-10 md:text-6xl text-4xl lg:text-8xl font-bold text-center  relative z-50 text-white pt-10">
+    <div className=" md:text-6xl text-4xl lg:text-8xl font-bold text-center  relative z-50 text-white ">
       <p className="text-xs sm:text-base  ">
 
       </p>

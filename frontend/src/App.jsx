@@ -6,7 +6,6 @@ import SignUpPage from './Pages/SignUpPage'
 import TransactionPage from './Pages/TransactionPage'
 import NotFound from './Pages/NotFound'
 import { Header } from "./components/component/Header";
-import { BackgroundBeams } from "./components/ui/BackgroundBeams";
 
 function App() {
   const authUser = true;
@@ -20,7 +19,6 @@ function App() {
         <Route path='/transaction/:id' element={<TransactionPage />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
-      <BackgroundBeams />
     </div>
   );
 }

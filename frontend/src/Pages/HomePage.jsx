@@ -1,7 +1,6 @@
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
-
 import { MdLogout } from "react-icons/md";
 import Cards from "../components/ui/Cards";
 import TransactionForm from "../components/ui/TransactionForm";
@@ -19,8 +18,8 @@ const HomePage = () => {
         borderColor: ["rgba(75, 192, 192)", "rgba(255, 99, 132)", "rgba(54, 162, 235, 1)"],
         borderWidth: 1,
         borderRadius: 30,
-        spacing: 10,
-        cutout: 130,
+        spacing: 8,
+        cutout: 120,
       },
     ],
   };
