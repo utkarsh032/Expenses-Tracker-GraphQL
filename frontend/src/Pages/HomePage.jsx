@@ -19,10 +19,10 @@ const HomePage = () => {
         data: [13, 8, 3],
         backgroundColor: ["rgba(75, 192, 192)", "rgba(255, 99, 132)", "rgba(54, 162, 235)"],
         borderColor: ["rgba(75, 192, 192)", "rgba(255, 99, 132)", "rgba(54, 162, 235, 1)"],
-        borderWidth: 1,
+        borderWidth: 8,
         borderRadius: 30,
-        spacing: 8,
-        cutout: 120,
+        spacing: 10,
+        cutout: 130,
       },
     ],
   };
@@ -53,9 +53,10 @@ const HomePage = () => {
             className='w-11 h-11 rounded-full border cursor-pointer'
             alt='Avatar'
           />
-          {!loading && <MdLogout className='mx-2 w-5 h-5 cursor-pointer' onClick={handleLogout} />}
+          {!loading && <MdLogout className='mx-2 w-5 h-5 cursor-pointer text-white' onClick={handleLogout} />}
           {/* loading spinner */}
           {loading && <div className='w-6 h-6 border-t-2 border-b-2 mx-2 rounded-full animate-spin'></div>}
+
         </div>
         <div className='flex flex-row w-full justify-center items-center gap-6'>
           <div className='h-[330px] w-[330px] md:h-[360px] md:w-[360px]  '>
