@@ -9,7 +9,6 @@ import { Header } from "./components/component/Header";
 import { Toaster } from "react-hot-toast";
 import { useQuery } from "@apollo/client";
 import { GET_AUTHENTICATED_USER } from "./graphql/queries/UserQuery";
-
 function App() {
   const { loading, data, error } = useQuery(GET_AUTHENTICATED_USER);
 
@@ -20,7 +19,7 @@ function App() {
   if (loading) return null;
 
   return (
-    <div className=" bg-neutral-950 relative flex flex-col items-center justify-center antialiased">
+    <div className=" bg-neutral-950 h-[160vh] relative flex flex-col items-center  antialiased">
       {data?.authUser && <Header />}
       <Routes>
         <Route path='/' element={data.authUser ? <HomePage /> : <Navigate to='/login' />} />
@@ -34,6 +33,7 @@ function App() {
       </Routes>
       <Toaster />
     </div>
+
   );
 }
 
