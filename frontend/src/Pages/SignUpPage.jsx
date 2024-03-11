@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import Input from "../components/ui/Input";
 import RadioButton from "../components/ui/RadioButton";
 
+import { useMutation } from "@apollo/client";
+import { SIGN_UP } from "../graphql/mutations/UserMutation";
+import toast from "react-hot-toast";
+
 const SignUpPage = () => {
   const [signUpData, setSignUpData] = useState({
     name: "",
@@ -10,6 +14,24 @@ const SignUpPage = () => {
     password: "",
     gender: "",
   });
+
+  const [signup, { loading }] = useMutation(SIGN_UP, {
+    refetchQueries: ["GetAuthenticatedUser"],
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await signup({
+        variables: {
+          input: signUpData,
+        },
+      });
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(error.message);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value, type } = e.target;
@@ -27,10 +49,6 @@ const SignUpPage = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(signUpData);
-  };
 
   return (
     <div className='h-screen flex justify-center items-center'>
@@ -89,8 +107,9 @@ const SignUpPage = () => {
                   type='submit'
                   className='text-white font-bold w-full rounded px-4 py-2 bg-gradient-to-br
               from-pink-500 to-pink-500 hover:from-pink-600 hover:to-pink-600'
+                  disabled={loading}
                 >
-                  SignUp
+                  {loading ? "Loading..." : "Sign Up"}
                 </button>
               </div>
             </form>
