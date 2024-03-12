@@ -84,6 +84,20 @@ const transactionResolver = {
       }
     },
   },
+
+  Transaction: {
+    user: async (parent) => {
+      const userId = parent.userId;
+      try {
+        const user = await User.findById(userId);
+        return user;
+      } catch (err) {
+        console.error("Error getting user:", err);
+        throw new Error("Error getting user");
+      }
+    },
+  },
+
 };
 
 export default transactionResolver;

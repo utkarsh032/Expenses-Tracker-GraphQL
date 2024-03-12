@@ -18,7 +18,7 @@ const categoryColorMap = {
   // Add more categories and corresponding color classes as needed
 };
 
-const Card = ({ transaction }) => {
+const Card = ({ transaction, authUser }) => {
   const { category, amount, location, date, paymentType, description } = transaction;
   const cardClass = categoryColorMap[category] || ""; // Handle case when category doesn't have a corresponding color class
   const [deleteTransaction, { loading }] = useMutation(DELETE_TRANSACTION, {
@@ -69,7 +69,7 @@ const Card = ({ transaction }) => {
         <div className='flex justify-between items-center'>
           <p className='text-xs text-white font-bold'>{formattedDate}</p>
           <img
-            src={"https://idsb.tmgrup.com.tr/ly/uploads/images/2023/11/14/301015.jpg"}
+            src={authUser?.profilePicture}
             className='h-8 w-8 border rounded-full'
             alt=''
           />
