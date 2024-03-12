@@ -30,6 +30,8 @@ function App() {
           element={data.authUser ? <TransactionPage /> : <Navigate to='/login' />}
         />
         <Route path='*' element={<NotFound />} />
+
+
       </Routes>
       <Toaster />
     </div>
