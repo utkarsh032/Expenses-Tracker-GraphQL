@@ -4,8 +4,10 @@ const transactionResolver = {
   Query: {
     transactions: async (_, __, context) => {
       try {
-        if (!context.getUser()) throw new Error("Unauthorized");
-        const userId = await context.getUser()._id;
+        if (!context.getUser()) {
+          throw new Error("Unauthorized");
+        }
+        const userId = context.getUser()._id;
 
         const transactions = await Transaction.find({ userId });
         return transactions;
@@ -23,7 +25,29 @@ const transactionResolver = {
         throw new Error("Error getting transaction");
       }
     },
-    // TODO => ADD categoryStatistics query
+    categoryStatistics: async (_, __, context) => {
+      try {
+        if (!context.getUser()) {
+          throw new Error("Unauthorized");
+        }
+        const userId = context.getUser()._id;
+        const transactions = await Transaction.find({ userId });
+        const categoryMap = {};
+
+        transactions.forEach((transaction) => {
+          if (!categoryMap[transaction.category]) {
+            categoryMap[transaction.category] = 0;
+          }
+          categoryMap[transaction.category] += transaction.amount;
+        });
+
+        const statistics = Object.entries(categoryMap).map(([category, totalAmount]) => ({ category, totalAmount }));
+        return statistics;
+      } catch (err) {
+        console.error("Error getting category statistics:", err);
+        throw new Error("Error getting category statistics");
+      }
+    },
   },
   Mutation: {
     createTransaction: async (_, { input }, context) => {
@@ -60,7 +84,6 @@ const transactionResolver = {
       }
     },
   },
-  // TODO => ADD TRANSACTION/USER RELATIONSHIP
 };
 
 export default transactionResolver;

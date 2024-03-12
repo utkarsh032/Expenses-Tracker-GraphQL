@@ -19,16 +19,11 @@ const categoryColorMap = {
 };
 
 const Card = ({ transaction }) => {
-  let { category, amount, location, date, paymentType, description } = transaction;
-  const cardClass = categoryColorMap[category];
+  const { category, amount, location, date, paymentType, description } = transaction;
+  const cardClass = categoryColorMap[category] || ""; // Handle case when category doesn't have a corresponding color class
   const [deleteTransaction, { loading }] = useMutation(DELETE_TRANSACTION, {
-    refetchQueries: ["GetTransactions"],
+    refetchQueries: ["GetTransactions", "GetTransactionStatistics"],
   });
-
-  // Capitalize the first letter of the description
-  description = description[0]?.toUpperCase() + description.slice(1);
-  category = category[0]?.toUpperCase() + category.slice(1);
-  paymentType = paymentType[0]?.toUpperCase() + paymentType.slice(1);
 
   const formattedDate = formatDate(date);
 
@@ -41,6 +36,7 @@ const Card = ({ transaction }) => {
       toast.error(error.message);
     }
   };
+
   return (
     <div className={`rounded-md p-4 bg-gradient-to-br ${cardClass}`}>
       <div className='flex flex-col gap-3'>
@@ -71,9 +67,9 @@ const Card = ({ transaction }) => {
           Location: {location || "N/A"}
         </p>
         <div className='flex justify-between items-center'>
-          <p className='text-xs text-black font-bold'>21 Sep, 2001</p>
+          <p className='text-xs text-white font-bold'>{formattedDate}</p>
           <img
-            src={"https://tecdn.b-cdn.net/img/new/avatars/2.webp"}
+            src={"https://idsb.tmgrup.com.tr/ly/uploads/images/2023/11/14/301015.jpg"}
             className='h-8 w-8 border rounded-full'
             alt=''
           />
