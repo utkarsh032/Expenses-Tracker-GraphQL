@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev":"nodemon backend/server.js"
-  },
+    "start": "set NODE_ENV=production&& node backend/server.js",
+    "dev": "set NODE_ENV=development&& nodemon backend/server.js",
+    "build": "npm install && npm install --prefix frontend && npm run build --prefix frontend"
+  },  
   "type": "module",
   "author": "UTKARSH RAJ",
   "license": "ISC",

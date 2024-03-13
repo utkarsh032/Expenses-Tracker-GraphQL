@@ -7,9 +7,9 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import { BackgroundBeams } from './components/ui/BackgroundBeams.jsx'
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql",
+  uri: import.meta.env.VITE_NODE_ENV === "development" ? "http://localhost:4000/graphql" : "/graphql",
   cache: new InMemoryCache(),
-  credentials: "include", //This tells Apollo Client to send cookies along with every request to the server
+  credentials: "include",
 })
 
 ReactDOM.createRoot(document.getElementById('root')).render(
