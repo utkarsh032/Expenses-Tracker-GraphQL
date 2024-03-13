@@ -12,7 +12,7 @@ export default {
       },
     },
   },
-  
+
   plugins: [
     addVariablesForColors,
     function ({ matchUtilities, theme }) {
