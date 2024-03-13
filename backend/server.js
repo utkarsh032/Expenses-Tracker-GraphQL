@@ -18,7 +18,7 @@ import mergedResolvers from "./resolvers/index.js";
 import mergedTypeDefs from "./typeDefs/index.js";
 
 import { connectDB } from "./db/connectDB.js";
-import { configurePassport } from "./passport/PassportConfig.js";
+import { configurePassport } from './passport/passportConfig.js'
 
 dotenv.config();
 configurePassport();
